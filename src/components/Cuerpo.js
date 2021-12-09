@@ -4,10 +4,10 @@ import Respuesta from './Respuesta';
 import Foto from './Foto';
 export default class Cuerpo extends React.Component {
 	render() {
-        const {index,pasos,responder} = this.props;
+        const {index,pasos,responder,cambiarPregunta,enviar,revisando} = this.props;
         const paso = pasos[index];
 		return <div className="cuerpo">
-      <div className="preguntayfoto">
+      <div className="preguntayattachment">
         <Pregunta 
             index={index}
             pregunta={paso.pregunta}
@@ -19,8 +19,12 @@ export default class Cuerpo extends React.Component {
 
         <Respuesta
           index={index}
+          pasos={pasos}
           paso={paso}
           responder = {responder}
+          cambiarPregunta={cambiarPregunta}
+          enviar={enviar}
+          revisando={revisando}
         />
 	        </div>
 	}

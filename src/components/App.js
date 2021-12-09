@@ -24,13 +24,24 @@ export default class App extends React.Component {
       enviado:false,
       revisando:false,
       detallado:false,
-      vulnerabilidades: [0,0,0,0,0,0]
+      vulnerabilidades: [0,0,0,0,0,0],
+      height: window.innerHeight, 
+      width: window.innerWidth
     };
   }
+  componentDidMount() {
+    // Additionally I could have just used an arrow function for the binding `this` to the component...
+    window.addEventListener("resize", this.updateDimensions);
+  }
 
+  updateDimensions = () => {
+    this.setState({
+      height: window.innerHeight, 
+      width: window.innerWidth
+    });
+  }
 
   cambiarPregunta = (index) => {
-    console.log(this.state.pasos)
     this.setState({
       preguntaActual : index,
     });
@@ -40,9 +51,53 @@ export default class App extends React.Component {
       return {...paso,
         respuesta : index === i ? respuesta : paso.respuesta}
     });
-    this.setState({
-      pasos: pasos
-    })
+    const categoria = pasos.find(paso => paso.pregunta === "Indique la categoría del dispositivo");
+    if(index >= pasos.indexOf(categoria)){
+      const preguntasGenerales = pasos.filter(paso => ((paso.fase === "General")));
+
+      const nube = pasos.find(paso => paso.pregunta === "¿Está conectado a una nube?") ||[];
+      const sensores = pasos.find(paso => paso.pregunta === "¿Cuenta con algún tipo de sensor?") || [];
+      const remoto = pasos.find(paso => paso.pregunta === "¿Se puede acceder remotamente al dispositivo a través de una aplicación?") || []
+      const conjunto = [nube,sensores,remoto]
+      let preguntasCategoría = pasos.filter(paso => ((paso.fase === "Especifica")));
+
+      if(index === pasos.indexOf(categoria)){
+
+        preguntasCategoría = this.state.pasosiniciales.filter(paso => ((paso.fase === "Especifica" && paso.categoria.includes(categoria.respuesta))));
+      }
+      conjunto.map((pregunta,i) =>{
+        if(pregunta !== []){
+          if(pregunta.respuesta === "No")
+            if(i===2){
+              preguntasCategoría = preguntasCategoría.filter(paso => (paso.index !== pregunta.index+1 && paso.index !== pregunta.index+2 && paso.index !== pregunta.index+3));
+            }
+            else
+              preguntasCategoría = preguntasCategoría.filter(paso => paso.index !== pregunta.index+1);
+          else{
+            if(pregunta.respuesta === "Sí" && !preguntasCategoría.some(paso => paso.index === pregunta.index+1)){
+              //preguntasCategoría.push(this.state.pasosiniciales[pregunta.index])
+              preguntasCategoría.push(this.state.pasosiniciales.find(paso => paso.index === (pregunta.index+1)))
+              if(i===2){
+                preguntasCategoría.push(this.state.pasosiniciales.find(paso => paso.index === (pregunta.index+2)))
+                preguntasCategoría.push(this.state.pasosiniciales.find(paso => paso.index === (pregunta.index+3)))
+              }
+              preguntasCategoría.sort((a, b) => (a.index - b.index))
+            }
+          }
+        }
+      }
+      );
+      const preguntasCategorizadas = preguntasGenerales.concat(preguntasCategoría);
+      console.log(preguntasCategorizadas)
+      this.setState({
+        pasos: preguntasCategorizadas
+      });
+    }
+    else{
+      this.setState({
+        pasos: pasos
+      })
+    }
   }
 
   enviar = () => {
@@ -51,32 +106,44 @@ export default class App extends React.Component {
         terminado: true
       });
     } 
-
-    
-
   }
+
   comprobar = () => {
     const {pasos} = this.state;
     const vulnerabilidades = [0,0,0,0,0,0]
-    if (pasos[1].respuesta === "No") vulnerabilidades[0]++;
+    if (this.buscar("actualizado").respuesta === "No" || this.buscar("actualizado").respuesta === "No lo sé") vulnerabilidades[0]++;
+    if (this.buscar("coms").respuesta.includes("RFID")) vulnerabilidades[1]++;
+    if (this.buscar("seguridad").respuesta ==="Ninguno" || this.buscar("seguridad").respuesta === "No lo sé") vulnerabilidades[1]++;
+    if (this.buscar("directamente").respuesta === "Directamente") vulnerabilidades[1]++;
+    if ((this.buscar("categoria").respuesta === "Salud y bienestar") || (this.buscar("categoria").respuesta === "Interfaz máquina humano") || (this.buscar("categoria").respuesta ==="Seguridad") || (this.buscar("categoria").respuesta ==="Sensores")) vulnerabilidades[2]++;
+    if (this.buscar("envnube").respuesta === "Sí") vulnerabilidades[3]++;
+    if (this.buscar("entradas").length !==0 && this.buscar("entradas").respuesta.includes("USB")) vulnerabilidades[4]++;
+    if (this.buscar("microcam").length !==0 && this.buscar("microcam").respuesta.includes("Cámara")) vulnerabilidades[4]++;
+    if (this.buscar("microcam").length !==0 && this.buscar("microcam").respuesta.includes("Micrófono")) vulnerabilidades[4]++;
+    if (this.buscar("actuadores").length !==0 && this.buscar("actuadores").respuesta === "Sí") vulnerabilidades[4]++;
+    if (this.buscar("remoto").length !==0 && this.buscar("remoto").respuesta === "Sí") vulnerabilidades[5]++;
+    if (this.buscar("dobleaut").length !==0 && this.buscar("dobleaut").respuesta === "No") vulnerabilidades[5]++;
+    if (this.buscar("opensource").length !==0 && this.buscar("opensource").respuesta === "No") vulnerabilidades[5]++;
+    if (this.buscar("web").length !==0 && this.buscar("web").respuesta === "Sí, pero no utiliza HTTPS") vulnerabilidades[5]++;
 
-    if (pasos[2].respuesta.includes("RFID")) vulnerabilidades[1]++;
-    if (pasos[4].respuesta ==="Ninguno") vulnerabilidades[1]++;
-    if (pasos[5].respuesta === "Directamente") vulnerabilidades[1]++;
-    if ((pasos[6].respuesta === "Salud y bienestar") || (pasos[6].respuesta === "Interfaz máquina humano") || (pasos[6].respuesta ==="Seguridad") || (pasos[6].respuesta ==="Sensores")) vulnerabilidades[2]++;
-    if (pasos[8].respuesta === "Sí") vulnerabilidades[3]++;
-    if (this.buscar(10).length !==0 && this.buscar(10).respuesta.includes("USB")) vulnerabilidades[4]++;
-    if (this.buscar(12).length !==0 && this.buscar(12).respuesta.includes("Cámara")) vulnerabilidades[4]++;
-    if (this.buscar(12).length !==0 && this.buscar(12).respuesta.includes("Micrófono")) vulnerabilidades[4]++;
-    if (this.buscar(13).length !==0 && this.buscar(13).respuesta === "Sí") vulnerabilidades[4]++;
-    if (this.buscar(15).length !==0 && this.buscar(15).respuesta === "Sí") vulnerabilidades[5]++;
-    if (this.buscar(16).length !==0 && this.buscar(16).respuesta === "No") vulnerabilidades[5]++;
-    if (this.buscar(17).length !==0 && this.buscar(17).respuesta === "No") vulnerabilidades[5]++;
-    if (this.buscar(18).length !==0 && this.buscar(18).respuesta === "Sí, pero no utiliza HTTPS") vulnerabilidades[5]++;
+    const preguntasSinRespuesta = pasos.filter((paso,i) => (paso.respuesta === "" || paso.respuesta.length === 0))
+    if(preguntasSinRespuesta.length !== 0)
+      window.alert("Las siguientes preguntas no se han respondido:"
+      + preguntasSinRespuesta.map(paso => {return "\n"+paso.pregunta})
+      )
+    else{
+      this.setState({
+        enviado: true,
+        vulnerabilidades: vulnerabilidades
+      })
+    }
 
+
+  }
+  volver = () => {
     this.setState({
-      enviado: true,
-      vulnerabilidades: vulnerabilidades
+      enviado: false,
+      vulnerabilidades: [0,0,0,0,0,0]
     })
   }
   comenzar = () => {
@@ -84,12 +151,28 @@ export default class App extends React.Component {
       comienzo: true
     })
   }
-  revisar = (index) => {
-    this.setState({
-      preguntaActual : index,
-      terminado : false,
-      revisando: true
-    })
+  revisar = (alias) => {
+    let indice = this.state.pasos.find(paso => paso.alias === alias) || [];
+    if(indice.length !== 0){
+      this.setState({
+        preguntaActual : this.state.pasos.indexOf(indice),
+        terminado : false,
+        revisando: true
+      })
+    }
+    else{
+        indice = this.state.pasosiniciales.find(paso => paso.alias === alias)
+        let pasos = this.state.pasos
+        pasos.push(indice)
+        pasos.sort((a, b) => (a.index - b.index))
+        this.setState({
+          pasos: pasos,
+          preguntaActual : pasos.indexOf(indice),
+          terminado : false,
+          revisando: true
+        })
+    }
+
   }
   detallar = () => {
     this.setState({
@@ -97,26 +180,17 @@ export default class App extends React.Component {
     })
   }
 
-  categorizar = () => {
-    const categoria = this.state.pasos.find(paso => paso.pregunta === "Indique la categoría del dispositivo");
-    const preguntasGenerales = this.state.pasos.filter(paso => ((paso.fase === "General")));
-    const preguntasCategoría = this.state.pasosiniciales.filter(paso => ((paso.fase === "Especifica" && paso.categoria.includes(categoria.respuesta))));
-    const preguntasCategorizadas = preguntasGenerales.concat(preguntasCategoría)
-    console.log(preguntasCategorizadas)
-    this.setState({
-      pasos: preguntasCategorizadas
-    });
-  }
-  buscar = (index) => {
-    let temporal = this.state.pasos.find(paso => paso.index === index) || [];
-    return temporal;
+
+  buscar = (alias) => {
+    const temporal = this.state.pasos.find(paso => paso.alias === alias) ||[];
+      return temporal;
 }  
   
 
   render(){
-    const {preguntaActual,pasos,terminado,enviado,comienzo,revisando,vulnerabilidades,detallado} = this.state;
+    const {preguntaActual,pasos,terminado,enviado,comienzo,revisando,vulnerabilidades,detallado,width} = this.state;
     return (
-      <div>
+      <>
         <Encabezado/>
         {comienzo === false ? 
         <Presentacion
@@ -128,19 +202,20 @@ export default class App extends React.Component {
             index={preguntaActual}
             pasos={pasos}
             responder={this.responder}
+            cambiarPregunta={this.cambiarPregunta}
+            enviar={this.enviar}
+            revisando={revisando}
           />
           <Navegacion
             index={preguntaActual}
             pasos={pasos}
             cambiarPregunta={this.cambiarPregunta}
             enviar={this.enviar}
-            categorizar={this.categorizar}
             revisando={revisando}
           />
         </> 
         : <>{enviado === false ?
           <Resultados
-            pasos={pasos}
             index={preguntaActual}
             comprobar={this.comprobar}
             revisar={this.revisar}
@@ -149,20 +224,23 @@ export default class App extends React.Component {
           />
           : 
           <Vulnerabilidades
-            pasos={pasos}
             index={preguntaActual}
             vulnerabilidades={vulnerabilidades}
-            vulnerable={this.vulnerable}
             buscar={this.buscar}
             detallado={detallado}
             detallar ={this.detallar}
+            volver ={this.volver}
+            width={width}
           />}
           </>}
          {
         }
   
-      </div>
+      </>
     );
+  }
+  componentWillUnmount() {
+    window.removeEventListener("resize", this.updateDimensions);
   }
 
 }

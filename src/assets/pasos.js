@@ -1,23 +1,23 @@
 exports.pasos =   [
-  {
+  /*{
     "index":1,
     "pregunta":"Indique el firmware o sistema operativo que utiliza su dispositivo",
     "respuesta":"",
     "opciones":[],
     "tipo":"Libre",
     "fase":"General",
-    "foto":"https://www.ionos.es/digitalguide/fileadmin/DigitalGuide/Teaser/operating-system-t.jpg",
-    "categoria":[]
-  },
+    "foto":"1.jpg",
+    "alias":"versionFirm"
+  },*/
   {
     "index":2,
     "pregunta":"¿Está actualizado?",
     "respuesta":"",
-    "opciones":["Sí","No"],
+    "opciones":["Sí","No","No lo sé"],
     "tipo":"Opciones",
     "fase":"General",
-    "foto":"https://www.lisot.com/wp-content/uploads/2019/11/actualizaciones-sistema-operativo-importancia.png",
-    "categoria":[]
+    "foto":"2.png",
+    "alias":"actualizado"
   },
   {
     "index":3,
@@ -26,38 +26,38 @@ exports.pasos =   [
     "opciones":["WiFi","BLE","6LoWPAN","ZigBee","RFID","NFC","Z-Wave","Otros"],
     "tipo":"Check",
     "fase":"General",
-    "foto":"https://smarthomefort.com/wp-content/uploads/2019/10/smart-home-protocols.jpg",
-    "categoria":[]
+    "foto":"3.jpg",
+    "alias":"coms"
   },
-  {
+  /*{
     "index":4,
     "pregunta":"¿Qué protocolo de transporte y red utiliza?",
     "respuesta":"",
     "opciones":["TCP/IP","UDP/IP"],
     "tipo":"Opciones",
     "fase":"General",
-    "foto":"https://www.ionos.es/digitalguide/fileadmin/DigitalGuide/Teaser/tcp-ip-t.jpg",
-    "categoria":[]
-  },
+    "foto":"4.jpg",
+    "alias":"transporteyred"
+  },*/
   {
     "index":5,
-    "pregunta":"¿Qué protocolos de seguridad llevan asociados a estos protocolos de red y transporte?",
+    "pregunta":"¿Qué protocolos de seguridad utiliza?",
     "respuesta":[],
-    "opciones":["TLS","SSL","IPSEC","Ninguno"],
+    "opciones":["TLS","SSL","IPSEC","Ninguno","No lo sé"],
     "tipo":"Opciones",
     "fase":"General",
-    "foto":"https://latam.kaspersky.com/content/es-mx/images/repository/isc/2020/cyber-security-article.jpg",
-    "categoria":[]
+    "foto":"5.jpg",
+    "alias":"seguridad"
   },
   {
     "index":6,
-    "pregunta":"¿El dispositivo se encuentra directamente conectado al router de la red o se conecta indirectamente a esta?",
+    "pregunta":"¿El dispositivo se encuentra directamente conectado al router de la red o indirectamente?",
     "respuesta":"",
     "opciones":["Directamente","Indirectamente"],
     "tipo":"Opciones",
     "fase":"General",
-    "foto":"https://xpertbiz.com/assets/images/Networking.jpg",
-    "categoria":[]
+    "foto":"6.jpg",
+    "alias":"directamente"
   },
   {
     "index":7,
@@ -66,8 +66,8 @@ exports.pasos =   [
     "opciones":["Gestión de recursos de energía","Entretenimiento","Salud y bienestar","Utilidad para la red","Interfaz máquina humano","Ayuda para los cuidados de la casa","Seguridad","Sensores"],
     "tipo":"Opciones",
     "fase":"General",
-    "foto":"http://diansa.com/blog/wp-content/uploads/2017/11/smart-homes-casas-inteligentes.png",
-    "categoria":[]
+    "foto":"7.png",
+    "alias":"categoria"
   },
   {
     "index":8,
@@ -76,8 +76,9 @@ exports.pasos =   [
     "opciones":["Sí","No"],
     "tipo":"Opciones",
     "fase":"Especifica",
-    "foto":"https://www.deustoformacion.com/sites/deustoformacion/files/imagenes_blog_1/tic/2014/07/iStock_000024868898_Medium.jpg",
-    "categoria":["Gestión de recursos de energía","Entretenimiento","Salud y bienestar","Utilidad para la red","Interfaz máquina humano","Ayuda para los cuidados de la casa","Seguridad","Sensores"]
+    "foto":"8.jpg",
+    "categoria":["Gestión de recursos de energía","Entretenimiento","Salud y bienestar","Utilidad para la red","Interfaz máquina humano","Ayuda para los cuidados de la casa","Seguridad","Sensores"],
+    "alias":"conexnube"
   },
     {
     "index":9,
@@ -86,8 +87,9 @@ exports.pasos =   [
     "opciones":["Sí","No"],
     "tipo":"Opciones",
     "fase":"Especifica",
-    "foto":"https://blog.dataprius.com/wp-content/uploads/2019/08/donde-se-guardan-datos-nube-1.jpg",
-    "categoria":["Gestión de recursos de energía","Entretenimiento","Salud y bienestar","Utilidad para la red","Interfaz máquina humano","Ayuda para los cuidados de la casa","Seguridad","Sensores"]
+    "foto":"9.jpg",
+    "categoria":["Gestión de recursos de energía","Entretenimiento","Salud y bienestar","Utilidad para la red","Interfaz máquina humano","Ayuda para los cuidados de la casa","Seguridad","Sensores"],
+    "alias":"envnube"
   },
     {
     "index":10,
@@ -96,8 +98,9 @@ exports.pasos =   [
     "opciones":["USB","Ethernet","Corriente","Otras","No tiene"],
     "tipo":"Check",
     "fase":"Especifica",
-    "foto":"https://as.com/betech/imagenes/2017/12/04/portada/1512388558_229532_1512388667_noticia_normal.jpg",
-    "categoria":["Entretenimiento","Utilidad para la red","Seguridad"]
+    "foto":"10.jpg",
+    "categoria":["Entretenimiento","Utilidad para la red","Seguridad"],
+    "alias":"entradas"
   },
   /*{
     "index":11,
@@ -107,7 +110,8 @@ exports.pasos =   [
     "tipo":"Libre",
     "fase":"Especifica",
     "foto":"https://www.metalindustria.com/media/uploads/noticias/wwethernet.jpg",
-    "categoria":["Gestión de recursos de energía","Entretenimiento","Utilidad para la red","Seguridad"]
+    "categoria":["Gestión de recursos de energía","Entretenimiento","Utilidad para la red","Seguridad"],
+    "alias":"entradascom"
   },*/
     {
     "index":11,
@@ -116,8 +120,9 @@ exports.pasos =   [
     "opciones":["Sí","No"],
     "tipo":"Opciones",
     "fase":"Especifica",
-    "foto":"https://sensores.top/wp-content/uploads/2019/10/sensores-min.png",
-    "categoria":["Gestión de recursos de energía","Salud y bienestar","Utilidad para la red","Interfaz máquina humano","Seguridad","Sensores"]
+    "foto":"12.png",
+    "categoria":["Gestión de recursos de energía","Salud y bienestar","Utilidad para la red","Interfaz máquina humano","Seguridad","Sensores"],
+    "alias":"sensores"
   },
     {
     "index":12,
@@ -126,8 +131,9 @@ exports.pasos =   [
     "opciones":["Micrófono","Cámara","Otros"],
     "tipo":"Check",
     "fase":"Especifica",
-    "foto":"https://s27389.pcdn.co/wp-content/uploads/2019/10/AdobeStock_283199860-1024x440.jpeg",
-    "categoria":["Gestión de recursos de energía","Salud y bienestar","Utilidad para la red","Interfaz máquina humano","Seguridad","Sensores"]
+    "foto":"13.jpeg",
+    "categoria":["Gestión de recursos de energía","Salud y bienestar","Utilidad para la red","Interfaz máquina humano","Seguridad","Sensores"],
+    "alias":"microcam"
   },
     {
     "index":13,
@@ -136,18 +142,20 @@ exports.pasos =   [
     "opciones":["Sí","No"],
     "tipo":"Opciones",
     "fase":"Especifica",
-    "foto":"https://www.researchgate.net/profile/Digbijay-Guha/publication/330044814/figure/fig2/AS:710308775620609@1546362217473/IOT-SENSORS-ACTUATORS.jpg",
-    "categoria":["Gestión de recursos de energía","Entretenimiento","Utilidad para la red","Interfaz máquina humano","Ayuda para los cuidados de la casa","Seguridad"]
+    "foto":"14.png",
+    "categoria":["Gestión de recursos de energía","Entretenimiento","Utilidad para la red","Interfaz máquina humano","Ayuda para los cuidados de la casa","Seguridad"],
+    "alias":"actuadores"
   },
     {
     "index":14,
-    "pregunta":"¿Tiene algún botón físico? ¿Qué utilidad tiene?",
-    "respuesta":"",
-    "opciones":[],
-    "tipo":"Libre",
+    "pregunta":"¿Tiene algún botón físico?",
+    "respuesta":[],
+    "opciones":["ON/OFF","Reset","Volumen","Silenciar micrófono","Otros"],
+    "tipo":"Check",
     "fase":"Especifica",
-    "foto":"https://www.bbvaopenmind.com/wp-content/uploads/2019/12/BBVA-OpenMind-Ahmed-Banafa-Ten-Trends-of-IoT-in-2020-Alexa.jpg",
-    "categoria":["Gestión de recursos de energía","Entretenimiento","Salud y bienestar","Utilidad para la red","Interfaz máquina humano","Ayuda para los cuidados de la casa","Seguridad","Sensores"]
+    "foto":"15.jpg",
+    "categoria":["Gestión de recursos de energía","Entretenimiento","Salud y bienestar","Utilidad para la red","Interfaz máquina humano","Ayuda para los cuidados de la casa","Seguridad","Sensores"],
+    "alias":"boton"
   },
   {
     "index":15,
@@ -156,8 +164,9 @@ exports.pasos =   [
     "opciones":["Sí","No"],
     "tipo":"Opciones",
     "fase":"Especifica",
-    "foto":"https://www.acens.com/comunicacion/wp-content/images/2015/12/conexion-escritorio-remoto-white-paper-acens-12.jpg",
-    "categoria":["Gestión de recursos de energía","Salud y bienestar","Utilidad para la red","Interfaz máquina humano","Ayuda para los cuidados de la casa","Seguridad","Sensores"]
+    "foto":"16.jpg",
+    "categoria":["Gestión de recursos de energía","Salud y bienestar","Utilidad para la red","Interfaz máquina humano","Ayuda para los cuidados de la casa","Seguridad","Sensores"],
+    "alias":"remoto"
   },
   {
     "index":16,
@@ -166,8 +175,9 @@ exports.pasos =   [
     "opciones":["Sí","No"],
     "tipo":"Opciones",
     "fase":"Especifica",
-    "foto":"https://news.sophos.com/wp-content/uploads/2017/06/shutterstock_6419607371.jpg?w=640",
-    "categoria":["Gestión de recursos de energía","Salud y bienestar","Utilidad para la red","Interfaz máquina humano","Ayuda para los cuidados de la casa","Seguridad","Sensores"]
+    "foto":"17.jpg",
+    "categoria":["Gestión de recursos de energía","Salud y bienestar","Utilidad para la red","Interfaz máquina humano","Ayuda para los cuidados de la casa","Seguridad","Sensores"],
+    "alias":"dobleaut"
   },
   {
     "index":17,
@@ -176,8 +186,9 @@ exports.pasos =   [
     "opciones":["Sí","No"],
     "tipo":"Opciones",
     "fase":"Especifica",
-    "foto":"https://www.muycomputerpro.com/wp-content/uploads/2020/09/open_source-1000x600.jpg",
-    "categoria":["Gestión de recursos de energía","Salud y bienestar","Utilidad para la red","Interfaz máquina humano","Ayuda para los cuidados de la casa","Seguridad","Sensores"]
+    "foto":"18.jpg",
+    "categoria":["Gestión de recursos de energía","Salud y bienestar","Utilidad para la red","Interfaz máquina humano","Ayuda para los cuidados de la casa","Seguridad","Sensores"],
+    "alias":"opensource"
   },
   {
     "index":18,
@@ -186,7 +197,8 @@ exports.pasos =   [
     "opciones":["Sí, y utiliza HTTPS","Sí, pero no utiliza HTTPS","No"],
     "tipo":"Opciones",
     "fase":"Especifica",
-    "foto":"https://www.comparahosting.com/wp-content/uploads/2020/06/21995154_m2.jpg",
-    "categoria":["Gestión de recursos de energía","Salud y bienestar","Utilidad para la red","Interfaz máquina humano","Seguridad","Sensores"]
+    "foto":"19.jpg",
+    "categoria":["Gestión de recursos de energía","Salud y bienestar","Utilidad para la red","Interfaz máquina humano","Seguridad","Sensores"],
+    "alias":"web"
   }
 ]

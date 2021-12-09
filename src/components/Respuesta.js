@@ -36,6 +36,7 @@ export default class Respuesta extends React.Component {
 									name = {pregunta}
 									onClick ={()=> this.props.responder(index, opcion)}
 									defaultChecked
+									onKeyDown={this.handleKeyDown}
 								/>
 								<label htmlFor={opcion}>
 									{opcion}
@@ -49,6 +50,7 @@ export default class Respuesta extends React.Component {
 									id ={opcion}
 									name = {pregunta}
 									onClick ={()=> this.props.responder(index, opcion)}
+									onKeyDown={this.handleKeyDown}
 								/>
 								<label htmlFor={opcion}>
 									{opcion}
@@ -71,6 +73,7 @@ export default class Respuesta extends React.Component {
 									name = {pregunta}
 									onClick ={(e)=> this.guardarRespuesta(opcion,e)}
 									defaultChecked
+									onKeyDown={this.handleKeyDown}
 								/>
 								<label htmlFor={opcion}>
 									{opcion}
@@ -84,7 +87,7 @@ export default class Respuesta extends React.Component {
 									id ={opcion}
 									name = {pregunta}
 									onClick ={(e)=> this.guardarRespuesta(opcion,e)}
-									
+									onKeyDown={this.handleKeyDown}
 								/>
 								<label htmlFor={opcion}>
 									{opcion}
@@ -119,4 +122,23 @@ export default class Respuesta extends React.Component {
 			}
 
 	}
+	handleKeyDown= (e) => {
+        if (e.key === 'Enter') {
+			if (this.props.revisando !== true){
+				
+				if(this.props.paso.respuesta !== ""){
+					if (this.props.index === (this.props.pasos.length - 1))
+						this.props.enviar()
+					else
+						this.props.cambiarPregunta(this.props.index+1)
+				}
+					
+
+					
+			}
+
+        }
+      }
+
+
 }
