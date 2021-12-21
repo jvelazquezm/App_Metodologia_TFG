@@ -8,7 +8,12 @@ body {
   background-color:#203647;
   -webkit-print-color-adjust: exact !important;
 }
-
+.app{
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  
+}
 
 .navbar{
   font-family: "Arial Black", sans-serif;
@@ -48,10 +53,12 @@ body {
 
 
 .actionbar{
-  margin:2%;
+  flex-shrink: 0;
   display: flex;
   flex-direction: row;
   overflow: auto;
+  margin:2%;
+  margin-top: 0%;
 }
 .actions {
   letter-spacing: 1px;
@@ -89,19 +96,19 @@ width: 100vw;
 }
 
 .cuerpo{
-
+  flex-grow: 1;
   display: flex;
   flex-direction: row;
   background-color: #7abfe4;
   margin:2%;
-  align-self: center;
   align-content: center;
   padding-left: 5%;
   padding-right: 5%;
-  height:68vh;
+
   overflow:auto;
  
 }
+
 
 .preguntayattachment{
   display: flex;
@@ -168,6 +175,7 @@ align-self: center;
   
 }
 .resultados{
+  flex-grow: 1;
   display: flex;
   flex-direction: column;
   font-family: "Arial Black", sans-serif;
@@ -179,8 +187,7 @@ align-self: center;
   margin:2%;
   padding-left: 5%;
   padding-right: 5%;
-  height:68vh;
-  overflow:auto;
+  overflow: auto;
 }
 .resultados2{
   display: flex;

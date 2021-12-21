@@ -190,7 +190,7 @@ export default class App extends React.Component {
   render(){
     const {preguntaActual,pasos,terminado,enviado,comienzo,revisando,vulnerabilidades,detallado,width} = this.state;
     return (
-      <>
+      <div className="app">
         <Encabezado/>
         {comienzo === false ? 
         <Presentacion/>
@@ -236,7 +236,7 @@ export default class App extends React.Component {
             detallado={detallado}
             detallar ={this.detallar}
           />
-      </>
+      </div>
     );
   }
   componentWillUnmount() {
