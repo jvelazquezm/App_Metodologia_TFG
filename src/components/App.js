@@ -193,9 +193,7 @@ export default class App extends React.Component {
       <>
         <Encabezado/>
         {comienzo === false ? 
-        <Presentacion
-          comenzar={this.comenzar}
-        />
+        <Presentacion/>
         :terminado === false ? 
         <>
           <Cuerpo
@@ -206,36 +204,38 @@ export default class App extends React.Component {
             enviar={this.enviar}
             revisando={revisando}
           />
+        </> 
+        : <>{enviado === false ?
+            <Resultados
+              revisar={this.revisar}
+              buscar={this.buscar}
+            />
+          : 
+          <Vulnerabilidades
+            vulnerabilidades={vulnerabilidades}
+            buscar={this.buscar}
+            detallado={detallado}
+            width={width}
+          />}
+          </>}
+         {
+        }
           <Navegacion
             index={preguntaActual}
             pasos={pasos}
             cambiarPregunta={this.cambiarPregunta}
             enviar={this.enviar}
             revisando={revisando}
-          />
-        </> 
-        : <>{enviado === false ?
-          <Resultados
-            index={preguntaActual}
-            comprobar={this.comprobar}
-            revisar={this.revisar}
-            vulnerabilidades={vulnerabilidades}
-            buscar={this.buscar}
-          />
-          : 
-          <Vulnerabilidades
-            index={preguntaActual}
-            vulnerabilidades={vulnerabilidades}
-            buscar={this.buscar}
-            detallado={detallado}
+            comienzo={comienzo}
+            terminado={terminado}
+            enviado={enviado}
             detallar ={this.detallar}
             volver ={this.volver}
-            width={width}
-          />}
-          </>}
-         {
-        }
-  
+            comprobar={this.comprobar}
+            comenzar={this.comenzar}
+            detallado={detallado}
+            detallar ={this.detallar}
+          />
       </>
     );
   }

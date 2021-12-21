@@ -19,8 +19,8 @@ export default class Cuerpo extends React.Component {
 
         <Respuesta
           index={index}
-          pasos={pasos}
           paso={paso}
+          pasos={pasos}
           responder = {responder}
           cambiarPregunta={cambiarPregunta}
           enviar={enviar}

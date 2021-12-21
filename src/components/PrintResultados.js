@@ -1,31 +1,11 @@
 import React from 'react';
-import ReactToPrint from 'react-to-print';
-import PrintResultados from './PrintResultados';
 
 export default class Resultados extends React.Component {
 	render() {
         const {revisar,buscar} = this.props;
         return (
-            <div className="resultados" >
-                <div style={{display: "none"}}>
-                    <PrintResultados 
-                        ref={el => (this.componentRef = el)}
-                        revisar={revisar}
-                        buscar={buscar}
-                    />
-                    </div>
-                <div className="print">
+            <div className="resultados2" >
                     <h1 className="h1res">Respuestas</h1>
-                    <ReactToPrint
-                        trigger={() => {
-                        // NOTE: could just as easily return <SomeComponent />. Do NOT pass an `onClick` prop
-                        // to the root node of the returned component as it will be overwritten.
-                        return <a className="imprimir" href="#">Imprimir resultados</a>;
-                        }}
-                        content={() => this.componentRef}
-                    />
-                </div>
-
                 <div className="conjunto1">
                     <div className="fase">
                         <h3>Firmware</h3>

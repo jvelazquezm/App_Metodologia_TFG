@@ -1,7 +1,5 @@
 import React from 'react';
 import { Radar } from 'react-chartjs-2';
-import ReactToPrint from 'react-to-print';
-import PrintVulnerabilidades from './PrintVulnerabilidades';
 export default class Resultados extends React.Component {
 
     constructor(props){
@@ -84,40 +82,12 @@ export default class Resultados extends React.Component {
         width > 1000 ? disposicion="horiz" : disposicion="vert";
         return (
             <div className="resultados">
-                <div style={{display: "none"}}>
-                    <PrintVulnerabilidades
-                        ref={el => (this.componentRef = el)}
-                        vulnerabilidades={vulnerabilidades}
-                        buscar={buscar}
-                        detallado={detallado}
-                        width={width}
-                    />
-                </div>
                 <div className="print">
                     <h1 className="centrado">Vulnerabilidades de seguridad y privacidad encontradas</h1>
-                    <ReactToPrint
-                                trigger={() => {
-                                // NOTE: could just as easily return <SomeComponent />. Do NOT pass an `onClick` prop
-                                // to the root node of the returned component as it will be overwritten.
-                                return <a className="imprimir" href="#">Imprimir resultados</a>;
-                                }}
-                                content={() => this.componentRef}
-                    />
                 </div>
-                {detallado === false ?
                 <>
-                    <div className={"grafica"+disposicion}>
-                        <Radar  className="radar" data={this.state.data} options={this.state.options}/>
-                    </div>
-                </>
-                :
-                <>
-                <div className={"todo"+disposicion}>
-                    <div className={"grafica"+disposicion}>
-                        <Radar  className="radar" data={this.state.data} options={this.state.options}/>
-                    </div>
-                                        
-                    <div className={"detalles"+disposicion}>
+                <div className={"todovert"}>           
+                    <div className={"detallesvert"}>
                     <div className="conjunto">
                         <div className="fase">
                             <h3>Firmware</h3>
@@ -222,8 +192,7 @@ export default class Resultados extends React.Component {
                 </div>
                  
                 </div>
-                </>
-                }    
+                </>  
             </div>
         )
 	}
